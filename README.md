@@ -1,8 +1,8 @@
 # Python Utils
 
 
-- [Cookie](Cookies/__init__.py)
-- [Query](Query/__init__.py)
+- [Cookie](utils/Cookies/__init__.py)
+- [Query](utils/Query/__init__.py)
 - [memo](utils/func.__init__.py)
 - [pipeline](utils/func.__init__.py)
 - [compose](utils/func.__init__.py)
