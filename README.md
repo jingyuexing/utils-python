@@ -88,3 +88,23 @@ hello() # will print "hello"
 hello() # reutrn None
 
 ```
+
+- **emit**
+```py
+emiter = SimpleEmitter()
+
+@emiter.on("event1")
+def _():
+    print("event1")
+
+@emiter.on("event2")
+def _():
+    print("event2")
+
+emit = EventEmitter()
+
+@emit.on("a.b")
+def _():
+    print("event emit a.b")
+
+```
