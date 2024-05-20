@@ -129,3 +129,37 @@ def memo(func: Callable[..., Any]) -> Callable[..., Any]:
         return cache[key]
 
     return wrapper
+
+class Limit:
+    """docstring for Limit"""
+    callback:Callable[...,bool]
+    def __init__(self, callback:Callable[...,bool]):
+        self.callback = callback
+    def __call__(self,func):
+        def wapper(*args, **kw):
+            if self.callback():
+               return func(*args,**kw)
+            else:
+                return func
+        return wapper
+
+
+def Reactive(
+    getter: Optional[Callable[[Any, str], bool]] = None,
+    setter: Optional[Callable[[Any, str, Any], bool]] = None
+):
+    def wrapper(cls):
+        def __setter__(self, key, value):
+            if setter:
+                result = setter(cls, key, value)
+                if result:
+                    super(cls, self).__setattr__(key, value)
+        def __getter__(self, key):
+            if getter:
+                result = getter(cls, key)
+                if result:
+                    return super(cls, self).__getattribute__(key)
+        setattr(cls, "__setattr__", __setter__)
+        setattr(cls, "__getattribute__", __getter__)
+        return cls
+    return wrapper
